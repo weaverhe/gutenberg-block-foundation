@@ -8,4 +8,10 @@ To use, just download the files and put it into the plugins directory. Then:
 2. run `npm install` or `yarn install` depending on your preference
 3. run `npm run develop` or `yarn develop` to watch files while developing
 
-This will eventually expand to include more tooling for compression, etc.
+If you want to use image optimization, you'll need to provide a [tinyPNG API key](https://tinypng.com/developers) in the webpack config file. Once you have the key, add it to `webpack.config.js`:
+
+```javascript
+var imageOptimizer = new tinyPng({
+	key: "YOUR_API_KEY_HERE"
+);
+```
