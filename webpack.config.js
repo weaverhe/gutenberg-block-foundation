@@ -1,5 +1,6 @@
 var path = require('path');
 var ExtractText = require('extract-text-webpack-plugin');
+var tinyPng = require('tinypng-webpack-plugin');
 
 var extractEditorStyles = new ExtractText({
     filename: './blocks.editor.build.css'
@@ -9,7 +10,11 @@ var extractBlockStyles = new ExtractText({
     filename: './blocks.style.build.css'
 });
 
-var plugins = [ extractEditorStyles, extractBlockStyles ];
+var imageOptimizer = new tinyPng({
+	key: "YOUR_API_KEY_HERE"
+});
+
+var plugins = [ extractEditorStyles, extractBlockStyles, imageOptimizer ];
 
 var stylusConfig = {
     use: [
@@ -23,7 +28,7 @@ var stylusConfig = {
 };
 
 module.exports = {
-    entry: './blocks/src/blocks.js',
+    entry: './blocks/src/index.js',
     output: {
         filename: 'blocks.build.js',
         path: path.resolve(__dirname, 'blocks/dist')
@@ -47,7 +52,16 @@ module.exports = {
                 test: /editor\.styl$/,
                 exclude: /node_modules/,
                 use: extractEditorStyles.extract(stylusConfig)
-            }
+			},
+			{
+				test: /\.(png|svg|jpe?g|gif)$/,
+				exclude: /node_modules/,
+				use: [
+					{
+						loader: 'file-loader'
+					}
+				]
+			}
         ],
     },
     plugins: plugins

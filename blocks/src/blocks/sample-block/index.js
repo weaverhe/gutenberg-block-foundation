@@ -1,3 +1,5 @@
+import '../../img/balloon.jpg';
+
 const { registerBlockType } = wp.blocks;
 
 registerBlockType('block-foundation/main', {
