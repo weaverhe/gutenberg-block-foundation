@@ -15,5 +15,8 @@
 		"react/react-in-jsx-scope": 0,
 		"no-undef": 1,
 		"no-unused-vars": 1
+	},
+	"globals": {
+		"wp": false
 	}
 }
